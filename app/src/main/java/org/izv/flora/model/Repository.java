@@ -109,7 +109,14 @@ public class Repository {
 
     }
 
-    public void subirImagen(File file, Imagen imagen) {
+    public void saveImagen(Intent intent, Imagen imagen) {
+        copyData(intent, imagen.nombre);
+        File file = new File(context.getExternalFilesDir(null), imagen.nombre);
+        Log.v("xyzyx", file.getAbsolutePath());
+        subirImagen(file, imagen);
+    }
+
+    private void subirImagen(File file, Imagen imagen) {
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("photo", file.getName(), requestFile);
         Call<Long> call = floraClient.subirImagen(body, imagen.idflora, imagen.descripcion);
@@ -117,16 +124,18 @@ public class Repository {
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
                 addImagenLiveData.setValue(response.body());
+                Log.v("xyzyx", "ok");
             }
 
             @Override
             public void onFailure(Call<Long> call, Throwable t) {
-
+                Log.v("xyzyx", "error");
             }
         });
     }
 
-    public boolean copyData(Intent data, String name) {
+    private boolean copyData(Intent data, String name) {
+        Log.v("xyzyx", "copyData");
         boolean result = true;
         Uri uri = data.getData();
         InputStream in = null;
@@ -136,7 +145,10 @@ public class Repository {
             out = new FileOutputStream(new File(context.getExternalFilesDir(null), name));
             byte[] buffer = new byte[1024];
             int len;
+            int cont = 0;
             while ((len = in.read(buffer)) != -1) {
+                cont++;
+                Log.v("xyzyx", "copyData" + cont);
                 out.write(buffer, 0, len);
             }
             in.close();

@@ -17,6 +17,7 @@ import org.izv.flora.model.entity.RowsResponse;
 import org.izv.flora.model.entity.Flora;
 import org.izv.flora.model.api.FloraClient;
 import org.izv.flora.view.AddFloraActivity;
+import org.izv.flora.view.AddImagenActivity;
 import org.izv.flora.viewmodel.MainActivityViewModel;
 
 import java.util.ArrayList;
@@ -42,12 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void initialize() {
         fabAdd = findViewById(R.id.fabAdd);
-        fabAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openAddActivity();
-            }
-        });
+        fabAdd.setOnClickListener(v -> openAddActivity());
+        FloatingActionButton fabImagen = findViewById(R.id.fabImagen);
+        fabImagen.setOnClickListener(v -> openAddImagenActivity());
         MainActivityViewModel mavm = new ViewModelProvider(this).get(MainActivityViewModel.class);
         mavm.getFloraLiveData().observe(this, floraPlural -> {
             Log.v("xyzyx", floraPlural.toString());
@@ -128,6 +126,11 @@ public class MainActivity extends AppCompatActivity {
                 Log.v("xyzyx", t.getLocalizedMessage());
             }
         });*/
+    }
+
+    private void openAddImagenActivity() {
+        Intent intent = new Intent(this, AddImagenActivity.class);
+        startActivity(intent);
     }
 
     private void openAddActivity() {
