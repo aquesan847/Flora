@@ -5,20 +5,20 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import org.izv.flora.R;
 import org.izv.flora.model.entity.Flora;
 import org.izv.flora.viewmodel.AddFloraViewModel;
-import org.izv.flora.viewmodel.MainActivityViewModel;
 
 public class AddFloraActivity extends AppCompatActivity {
 
-    private EditText etNombre;
+    private TextInputEditText etNombre;
     private Button btAdd;
 
     @Override

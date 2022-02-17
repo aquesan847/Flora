@@ -1,4 +1,25 @@
 <resources>
     <string name="app_name">Flora</string>
-    <string name="nombre">nombre</string>
+    <string name="nombre">Nombre</string>
+    <string name="familia">Familia</string>
+    <string name="identificacion">Identificación</string>
+    <string name="altitud">Altitud</string>
+    <string name="habitat">Hábitat</string>
+    <string name="fitosociologia">Fitosociología</string>
+    <string name="biotipo">Biotipo</string>
+    <string name="biologia_reproductiva">Biologia reproductiva</string>
+    <string name="floracion">Floración</string>
+    <string name="fructificacion">Fructificación</string>
+    <string name="expresion_sexual">Expresión sexual</string>
+    <string name="polinizacion">Polinización</string>
+    <string name="dispersion">Dispersión</string>
+    <string name="numero_cromosomatico">Número cromosomático</string>
+    <string name="reproduccion_asexual">Reproducción asexual</string>
+    <string name="distribucion">Distribución</string>
+    <string name="biologia">Biología</string>
+    <string name="demografia">Demografía</string>
+    <string name="amenazas">Amenazas</string>
+    <string name="medidas_propuestas">Medidas propuestas</string>
+    <string name="todo">todo</string>
+    <string name="add">Add</string>
 </resources>
