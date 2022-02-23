@@ -9,15 +9,23 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.izv.flora.R;
 import org.izv.flora.model.entity.Imagen;
 import org.izv.flora.viewmodel.AddFloraViewModel;
 import org.izv.flora.viewmodel.AddImagenViewModel;
+
+import java.io.File;
+import java.util.Set;
 
 public class AddImagenActivity extends AppCompatActivity {
 
@@ -25,6 +33,10 @@ public class AddImagenActivity extends AppCompatActivity {
     private Intent resultadoImagen = null;
     private EditText etNombre, etDescripcion, etIdFlora;
     private AddImagenViewModel aivm;
+    private ImageView imageView;
+    private Uri uri;
+    private FloatingActionButton btSelectImage;
+    private Button btChangeImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +47,11 @@ public class AddImagenActivity extends AppCompatActivity {
 
     private void initialize() {
         launcher = getLauncher();
-        Button btSelectImage;
         etDescripcion = findViewById(R.id.etDescripcion);
         etNombre = findViewById(R.id.etNombreImagen);
         etIdFlora = findViewById(R.id.etIdFlora);
+        imageView = findViewById(R.id.imageView);
+        btChangeImg = findViewById(R.id.btChangeImg);
         btSelectImage = findViewById(R.id.btSelectImage);
         btSelectImage.setOnClickListener(v -> {
             selectImage();
@@ -73,6 +86,15 @@ public class AddImagenActivity extends AppCompatActivity {
                     if(result.getResultCode() == Activity.RESULT_OK) {
                         //copyData(result.getData());
                         resultadoImagen = result.getData();
+                        uri = resultadoImagen.getData();
+                        Glide.with(getApplicationContext())
+                                .load(uri) // Uri of the picture
+                                .into(imageView);
+                        btSelectImage.setVisibility(View.GONE);
+                        btChangeImg.setVisibility(View.VISIBLE);
+                        btChangeImg.setOnClickListener(v -> {
+                            selectImage();
+                        });
                     }
                 }
         );
