@@ -3,4 +3,4 @@ Esta aplicación está desarrollada para la asignatura de Acceso a Datos, consis
 
 
 ## Funcionamiento
-[Homescreen](/../Images/Homescreen.png)
+[Homescreen](/../main/Images/Homescreen.png)
