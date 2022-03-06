@@ -1,26 +1,28 @@
 package org.izv.flora.viewmodel;
 
+
 import android.app.Application;
-import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import org.izv.flora.model.Repository;
-import org.izv.flora.model.entity.Imagen;
+import org.izv.flora.model.entity.Flora;
 
-public class AddImagenViewModel extends AndroidViewModel {
 
+public class EditFloraViewModel extends AndroidViewModel {
     private Repository repository;
 
-    public AddImagenViewModel(@NonNull Application application) {
+    public EditFloraViewModel(@NonNull Application application) {
         super(application);
         repository = new Repository(application);
     }
 
-
-    public void saveImagen(Intent intent, Imagen imagen) {
-        repository.saveImagen(intent, imagen);
+    public void deleteFlora(long id) {
+        repository.deleteFlora(id);
+    }
+    public void editFlora(long id, Flora flora) {
+        repository.editFlora(id, flora);
     }
 }

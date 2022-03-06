@@ -13,13 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Flora">
         <activity
-            android:name=".view.AddImagenActivity"
-            android:exported="false" />
+            android:name=".view.activity.AddImagenActivity"
+            android:exported="true" />
         <activity
-            android:name=".view.AddFloraActivity"
-            android:exported="false" />
+            android:name=".view.activity.AddFloraActivity"
+            android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.activity.EditFloraActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

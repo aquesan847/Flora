@@ -26,4 +26,11 @@
     <string name="nombre_imagen">Nombre Imagen</string>
     <string name="descripci_n">Descripción</string>
     <string name="change">Change</string>
+    <string name="name">Name</string>
+    <string name="family">Family</string>
+    <string name="cancel">Cancel</string>
+    <string name="editar">Editar</string>
+    <string name="borrar">Borrar</string>
+    <string name="guardar">Guardar</string>
+    <string name="cancelar">Cancelar</string>
 </resources>

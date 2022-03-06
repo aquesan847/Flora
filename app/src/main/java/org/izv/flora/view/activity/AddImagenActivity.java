@@ -1,4 +1,4 @@
-package org.izv.flora.view;
+package org.izv.flora.view.activity;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -12,19 +12,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.izv.flora.R;
+import org.izv.flora.model.entity.Flora;
 import org.izv.flora.model.entity.Imagen;
 import org.izv.flora.viewmodel.AddFloraViewModel;
 import org.izv.flora.viewmodel.AddImagenViewModel;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Set;
 
 public class AddImagenActivity extends AppCompatActivity {
@@ -33,15 +38,18 @@ public class AddImagenActivity extends AppCompatActivity {
     private Intent resultadoImagen = null;
     private EditText etNombre, etDescripcion, etIdFlora;
     private AddImagenViewModel aivm;
+    private Spinner spinnerIdFlora;
     private ImageView imageView;
     private Uri uri;
     private FloatingActionButton btSelectImage;
     private Button btChangeImg;
+    private ArrayList<Flora> arrayFlora;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_imagen);
+        arrayFlora= (ArrayList<Flora>) getIntent().getSerializableExtra("arrayFlora");
         initialize();
     }
 
@@ -49,7 +57,8 @@ public class AddImagenActivity extends AppCompatActivity {
         launcher = getLauncher();
         etDescripcion = findViewById(R.id.etDescripcion);
         etNombre = findViewById(R.id.etNombreImagen);
-        etIdFlora = findViewById(R.id.etIdFlora);
+        spinnerIdFlora =findViewById(R.id.spinnerFloraId);
+        fillSpinner();
         imageView = findViewById(R.id.imageView);
         btChangeImg = findViewById(R.id.btChangeImg);
         btSelectImage = findViewById(R.id.btSelectImage);
@@ -60,21 +69,35 @@ public class AddImagenActivity extends AppCompatActivity {
         btAddImagen.setOnClickListener(v -> {
             uploadDataImage();
         });
+        Button btCancelImg = findViewById(R.id.btCancelImg);
+        btCancelImg.setOnClickListener(view -> finish());
         aivm = new ViewModelProvider(this).get(AddImagenViewModel.class);
     }
 
     private void uploadDataImage() {
-        String nombre = etNombre.getText().toString();
-        String descripcion = etDescripcion.getText().toString();
-        String idFlora = etIdFlora.getText().toString();
-        if(!(nombre.trim().isEmpty() ||
-                idFlora.trim().isEmpty() ||
-                resultadoImagen == null)) {
+
+        long id = 0;
+        String nombre = "";
+        for (int i = 0; i < arrayFlora.size(); i++) {
+            if (spinnerIdFlora.getSelectedItem().toString().equals(arrayFlora.get(i).getNombre())) {
+                id = arrayFlora.get(i).getId();
+            }
+        }
+
+        Random seed = new Random(30);
+        Integer numero=-seed.nextInt();
+        String idFlora = String.valueOf(id);
+        nombre = etNombre.getText().toString() + "_" +numero;
+        String descripcion =etDescripcion.getText().toString();
+        if (!(nombre.trim().isEmpty() || idFlora.trim().isEmpty() || resultadoImagen == null)) {
             Imagen imagen = new Imagen();
             imagen.nombre = nombre;
             imagen.descripcion = descripcion;
             imagen.idflora = Long.parseLong(idFlora);
             aivm.saveImagen(resultadoImagen, imagen);
+            Log.v("xyzyx", imagen.toString());
+            finish();
+        } else {
         }
     }
 
@@ -110,5 +133,15 @@ public class AddImagenActivity extends AppCompatActivity {
     void selectImage() {
         Intent intent = getContentIntent();
         launcher.launch(intent);
+    }
+
+    void fillSpinner(){
+
+        String[] selected = new String[arrayFlora.size()];
+        for (int i = 0; i < arrayFlora.size(); i++) {
+            selected[i] = arrayFlora.get(i).getNombre();
+        }
+        ArrayAdapter<String> content = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, selected);
+        spinnerIdFlora.setAdapter(content);
     }
 }
