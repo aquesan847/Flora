@@ -17,5 +17,7 @@ Finalmente si pulsamos directamente en el _Recycler View_ cualquier flora podrem
 
 
 ## Gracias por su atención
+* Desarrollado en Android Studi 🔧
+* Lenguajes utilizados --> Java + PHP 🤓
 
 ⌨️ con ❤️ por [aquesan847](https://github.com/aquesan847) 🍃
